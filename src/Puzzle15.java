@@ -1,68 +1,15 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+// import java.io.BufferedReader;
+// import java.io.FileReader;
+// import java.io.IOException;
 public class Puzzle15 {
-    public static void printGameTabl(int[][] gameTable){
-        System.out.println("╔════╦════╦════╦════╗");
-        for(int x = 0; x < gameTable.length; x++){
-            for(int y = 0; y < gameTable.length; y++){
-                if(y == 0) System.out.print("║");
-                System.out.printf(" %2d ║", gameTable[x][y]);
-            }
-            System.out.println();
-            if(x < 3) System.out.println("╠════╬════╬════╬════╣");
-        }
-        System.out.println("╚════╩════╩════╩════╝");
-    }
     public static void main(String[] args) {
         PuzzleTable game = new PuzzleTable();
         //╠ ╣ ╦ ╩ ╬ ╔ ╗ ═ ╚ ╝
         game.printGameTable();
-
-        int[][] table = new int[4][4];
-
+        String randomThing = Utilities.randomInitGame();
+        System.out.println(randomThing);
         //table[(int) (Math.random() * 3) + 1][(int) (Math.random() * 3) + 1] = 0;
 
-        String filePath = "/home/agus/JavaPractica/JavaBookPrac/Puzzle15Game/initPartida.txt";
-        String randomLine = null;
-        try{
-            //paso 1 contar lineas del archivo
-            int totalFileLines = countLines(filePath);
-
-            //paso 2 generar num aleatorio
-            int randomNum = (int) (Math.random() * totalFileLines) + 1;
-
-            //leer linea aleatoria
-            randomLine = readRandomLine(filePath, randomNum);
-
-            //print linea aleatoria
-            System.out.println("linea aleatoria: " + randomLine);
-
-        }catch (IOException e){
-            System.err.println("Error");
-        }
-
-        //Carga de la linea aleatoria a un array
-
-        printGameTabl(table);
-    }
-    //cuenta las lineas que tiene el archivo y lo retorna
-    public static int countLines(String filePath) throws IOException{
-        BufferedReader read = new BufferedReader(new FileReader(filePath));
-        int lines = 0;
-        while(read.readLine() != null) lines++;
-        read.close();
-        return lines;
-    }
-    //lee linea random y lo retorna;
-    public static String readRandomLine(String filePath, int lineNum) throws IOException{
-        BufferedReader read = new BufferedReader(new FileReader(filePath));
-        String line = null;
-        for(int i = 0; i <= lineNum; i++){
-            line = read.readLine();
-        }
-        read.close();
-        return line;
     }
 }
 //temporal wea
