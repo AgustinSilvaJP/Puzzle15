@@ -1,29 +1,56 @@
-// import java.io.BufferedReader;
-// import java.io.FileReader;
-// import java.io.IOException;
 import java.util.Scanner;
 //╠ ╣ ╦ ╩ ╬ ╔ ╗ ═ ╚ ╝
 public class Puzzle15 {
     public static void main(String[] args) {
-        PuzzleTable game = new PuzzleTable();
-        game.printGameTable();
         
         Scanner scan = new Scanner(System.in);
-        
-        char movement;
-        System.out.println("press a button: (w,a,s,d)");
         do{
-            movement = scan.next().charAt(0);
+            Utilities.clearWindow();
+            PuzzleTable game = new PuzzleTable();
+        
+            int apuestaGame;
 
-            if(movement == 'a') game.moveL();
-            if(movement == 's') game.moveDown();
-            if(movement == 'd') game.moveR();
-            if(movement == 'w') game.moveUp();
-            System.out.print("\033[H\033[2J");//
-            System.out.flush();
+            System.out.println("Ingrese valor entre (40, 200)");
+            do{
+                apuestaGame = scan.nextInt();
+                if((apuestaGame < 40 || apuestaGame > 200)){
+                    Utilities.clearWindow();
+                    System.out.print("Ingrese otro valor: ");
+                    }
+            }while(apuestaGame < 40 || apuestaGame > 200);
+            Utilities.clearWindow();
+            char movement;
             game.printGameTable();
-            System.out.println("movements: " + PuzzleTable.cantMoves);
-        }while(movement != 'f');
+            game.printGameController();
+            do{
+                movement = scan.next().charAt(0);
+
+                if(movement == 'a') game.moveL();
+                if(movement == 's') game.moveDown();
+                if(movement == 'd') game.moveR();
+                if(movement == 'w') game.moveUp();
+                Utilities.clearWindow();
+                game.printGameTable();
+                game.printGameController();
+            }while(!game.winCondition() && movement != 'x');
+            if(movement == 'x'){
+                game.setScoreAbandonGame();
+            }else{
+                game.setScore(apuestaGame);
+            }
+    
+            Utilities.clearWindow();
+
+            game.winMessage();
+            game.printGameScore();
+
+            System.out.println("Do you want to play again?:");
+            Utilities.printGameOption();
+            
+        }while((scan.next().charAt(0) == 'y'));
         scan.close();
+        Utilities.clearWindow();
+        //╠ ╣ ╦ ╩ ╬ ╔ ╗ ═ ╚ ╝
+
     }
 }
