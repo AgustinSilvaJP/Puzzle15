@@ -3,7 +3,21 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Utilities {
+    //╠ ╣ ╦ ╩ ╬ ╔ ╗ ═ ╚ ╝ ║
+    public static void printGameOption(){
+        System.out.println("╔═══╗  ╔═══╗");
+        System.out.println("║ Y ║  ║ N ║");
+        System.out.println("╚═══╝  ╚═══╝");
+    }
+    public static boolean newGameImput(char charac){
+        if(charac == 'y') return true;
+        return false;
+    }
 
+    public static void clearWindow(){
+        System.out.print("\033[H\033[2J");//
+        System.out.flush();
+    }
     //dado un directorio, cuenta la cantidad de lienas que contiene el archivo
     public static int countLines(String filePath) throws IOException{
         BufferedReader read = new BufferedReader(new FileReader(filePath));
@@ -24,7 +38,6 @@ public class Utilities {
         read.close();
         return line;
     }
-
     //dado la direccion de un archivo, lee una linea aleatoria, la guarda en un variable y lo retorna
     public static String randomInitGame(){
         //directorio del archivo a leer;
@@ -66,7 +79,6 @@ public class Utilities {
         //retorno del array de ints
         return intArray;
     }
-
     public static int[][] arrayTo2x2Matrix(int[] array){
         int[][] mat = new int[4][4];
         int index = 0;
@@ -78,14 +90,13 @@ public class Utilities {
         }
         return mat;
     }
-
-    //dado una matriz retorna un int[] con la posicion del elemento 0;
+    //dado una matriz retorna un int[] con la posicion del elemento 16; 16 que representara un num 'vacio'
     public static int[] emptyIndex(int[][] matrix){
         int[] emptyPosi = {-1, -1};
         int cElem = matrix.length;
         for(int x = 0; x < cElem; x++){
             for(int y = 0; y < cElem; y++){
-                if(matrix[x][y] == 0){
+                if(matrix[x][y] == 16){
                     emptyPosi = new int[] {x, y};
                     return emptyPosi;   
                 }
